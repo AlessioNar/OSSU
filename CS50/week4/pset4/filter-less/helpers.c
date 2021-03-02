@@ -100,7 +100,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     // Blur box algorithm
     for (int row = 0; row < height; row++)
     {
-      for (int col = 0; col < height; col++)
+      for (int col = 0; col < width; col++)
       {
         int counter = 0;
         int x[] = {row -1, row, row + 1};
@@ -132,7 +132,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     // Copy to final image
     for (int row = 0; row < height; row++)
     {
-      for (int col = 0; col < height; col++)
+      for (int col = 0; col < width; col++)
       {
         image[row][col] = temp[row][col];
       }
