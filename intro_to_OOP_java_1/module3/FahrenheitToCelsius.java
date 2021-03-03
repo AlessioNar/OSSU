@@ -12,8 +12,16 @@ public class FahrenheitToCelsius {
     double celsius = (5.0/9) * (fahrenheit - 32);
     System.out.printf("%s Fahrenheit: %d\n", day, fahrenheit);
     System.out.printf("%s %-10s: %.2f\n", day, cText, celsius);
+
     if (fahrenheit >= 70)
-      System.out.println("Yay! Go to the park.");
-    
+    {
+      System.out.println("Yay! Go to park.");
+    }
+    else
+    {
+      System.out.println("Stay home where there’s wi-fi and learn 1331 online");
+    }
+
+
   }
 }
