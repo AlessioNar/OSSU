@@ -13,7 +13,7 @@ public class FahrenheitToCelsius {
     System.out.printf("%s Fahrenheit: %d\n", day, fahrenheit);
     System.out.printf("%s %-10s: %.2f\n", day, cText, celsius);
 
-    if (fahrenheit >= 70)
+    if ((fahrenheit >= 70) && (fahrenheit <= 90))
     {
       System.out.println("Yay! Go to park.");
     }
