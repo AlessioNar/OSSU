@@ -1,6 +1,6 @@
 # OSSU
 
-This repository contains my path towards becoming a computer scientist, follwing the suggested path of the Open Source Society University. 
+This repository contains my path towards becoming a computer scientist, following the path suggested by the Open Source Society University. 
 
 Courses in progress
 - CS50's Introduction to Computer Science by Harvardx
