@@ -15,21 +15,29 @@ public class Battleship
 
 			player1 = inputBattleship(input);
 			printBoard(player1);
-			player1 = hit(player1, input);
-			printBoard(player1);
-			// Here I print the Board
-
-			// 100 empty lines
-			/*for (int i = 0; i < 100; i++)
-			{
-				System.out.println("");
-			}*/
 
 			System.out.println("Player 2: enter coordinates");
 			player2 = inputBattleship(input);
 			printBoard(player2);
 
+			while((checkWin(player1) == false) && (checkWin(player2) == false))
+			{
+					player1 = hit(player1, input);
+					printBoard(player1);
 
+					player2 = hit(player2, input);
+					printBoard(player2);
+			}
+
+			if (checkWin(player1) == true)
+			{
+				System.out.println("Player 1 wins!");
+			}
+
+			if (checkWin(player2) == true)
+			{
+				System.out.println("Player 2 wins!");
+			}
 	}
 
 	public static char[][] inputBattleship(Scanner input)
@@ -78,21 +86,26 @@ public class Battleship
 							else
 							{
 								System.out.println("You already have a ship there. Choose different coordinates.");
+								input.next();
 								System.out.println("Enter ship " + (i+1) + " location:");
+								continue;
 							}
 						}
 						else
 						{
 							System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+							input.next();
 							System.out.println("Enter ship " + (i+1) + " location:");
+							continue;
 						}
 					}
 				}
 				else
 				{
-					input.next();
 					System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+					input.next();
 					System.out.println("Enter ship " + (i+1) + " location:");
+					continue;
 				}
 
 			}
@@ -113,7 +126,6 @@ public class Battleship
 		}
 	}
 
-
 	public static void printBoard(char[][] player)
 	{
 		System.out.println("  0 1 2 3 4");
@@ -128,29 +140,92 @@ public class Battleship
 		}
 	}
 
-	public static char[][] hitBoard(char[][] board, int x_coord, int y_coord)
-	{
-		if (board[x_coord][y_coord] == '-')
-		{
-			board[x_coord][y_coord] = 'O';
-			System.out.println("PLAYER [NUM] MISSED!");
-		}
-		else if (board[x_coord][y_coord] == '@')
-		{
-			board[x_coord][y_coord] = 'X';
-			System.out.println("PLAYER [NUM A] HIT PLAYER [NUM B]’s SHIP!");
-		}
-		return board;
-	}
-
 	public static char[][] hit(char[][] board, Scanner input)
 	{
 		System.out.println("Player 1, enter hit row/column:");
 		int x_coord, y_coord;
 
-    x_coord = input.nextInt();
-    y_coord = input.nextInt();
-		board = hitBoard(board, x_coord, y_coord);
+		boolean incorrectInput = true;
+
+		while(incorrectInput)
+		{
+			// First verify that the coordinates are integers
+			if (input.hasNextInt())
+			{
+				x_coord = input.nextInt();
+
+				if (input.hasNextInt())
+				{
+
+					y_coord = input.nextInt();
+
+					if (isInMap(x_coord, y_coord) == true)
+					{
+						if (board[x_coord][y_coord] == '-')
+						{
+							board[x_coord][y_coord] = 'O';
+							System.out.println("PLAYER [NUM] MISSED!");
+							incorrectInput = false;
+						}
+						else if (board[x_coord][y_coord] == '@')
+						{
+							board[x_coord][y_coord] = 'X';
+							System.out.println("PLAYER [NUM A] HIT PLAYER [NUM B]’s SHIP!");
+							incorrectInput = false;
+						} else if (board[x_coord][y_coord] == 'O' | board[x_coord][y_coord] == 'X')
+						{
+							System.out.println("You already fired on this spot. Choose different coordinates.");
+							continue;
+						}
+					}
+					else
+					{
+						System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+						input.next();
+						continue;
+					}
+
+				}
+				else
+				{
+						System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+						input.next();
+						continue;
+				}
+			}
+			else
+			{
+				System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+				input.next();
+				continue;
+			}
+		}
 		return board;
+	}
+
+	public static boolean checkWin(char[][] board)
+	{
+		int counter = 0;
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				if (board[i][j] == 'X')
+				{
+					counter = counter + 1;
+				}
+			}
+		}
+
+		System.out.printf("%d ships sunk\n", counter);
+
+		if (counter == 5)
+		{
+			return true;
+		}
+		else
+		{
+		return false;
+		}
 	}
 }
