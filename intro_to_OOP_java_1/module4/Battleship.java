@@ -22,19 +22,22 @@ public class Battleship
 
 			while((checkWin(player1) == false) && (checkWin(player2) == false))
 			{
-					player1 = hit(player1, input);
+					player1 = hit(player1, input, "1");
 					printBoard(player1);
 
-					player2 = hit(player2, input);
+					player2 = hit(player2, input, "2");
 					printBoard(player2);
 			}
 
-			if (checkWin(player1) == true)
+			if (checkWin(player1) == true && checkWin(player2) == true)
+			{
+				System.out.println("It's a tie! Nobody wins.");
+			}
+			else if (checkWin(player1) == true)
 			{
 				System.out.println("Player 1 wins!");
 			}
-
-			if (checkWin(player2) == true)
+			else if (checkWin(player2) == true)
 			{
 				System.out.println("Player 2 wins!");
 			}
@@ -140,9 +143,9 @@ public class Battleship
 		}
 	}
 
-	public static char[][] hit(char[][] board, Scanner input)
+	public static char[][] hit(char[][] board, Scanner input, String player)
 	{
-		System.out.println("Player 1, enter hit row/column:");
+		System.out.printf("Player %s, enter hit row/column:\n", player);
 		int x_coord, y_coord;
 
 		boolean incorrectInput = true;
@@ -164,13 +167,13 @@ public class Battleship
 						if (board[x_coord][y_coord] == '-')
 						{
 							board[x_coord][y_coord] = 'O';
-							System.out.println("PLAYER [NUM] MISSED!");
+							System.out.printf("PLAYER %s MISSED!\n", player);
 							incorrectInput = false;
 						}
 						else if (board[x_coord][y_coord] == '@')
 						{
 							board[x_coord][y_coord] = 'X';
-							System.out.println("PLAYER [NUM A] HIT PLAYER [NUM B]’s SHIP!");
+							System.out.printf("PLAYER %s HIT OPPONENT'S SHIP!\n", player);
 							incorrectInput = false;
 						} else if (board[x_coord][y_coord] == 'O' | board[x_coord][y_coord] == 'X')
 						{
@@ -216,8 +219,6 @@ public class Battleship
 				}
 			}
 		}
-
-		System.out.printf("%d ships sunk\n", counter);
 
 		if (counter == 5)
 		{
