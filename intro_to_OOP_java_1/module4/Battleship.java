@@ -5,7 +5,22 @@ public class Battleship
 	{
 			Scanner input = new Scanner(System.in);
 			System.out.println("Welcome to Battleship");
-			inputBattleship(input);
+			int player1[][] = new int[5][2];
+			int player2[][] = new int[5][2];
+			printBoard();
+			System.out.println("Player1: enter coordinates");
+			player1 = inputBattleship(input);
+
+			// Here I print the Board
+
+			// 100 empty lines
+			/*for (int i = 0; i < 100; i++)
+			{
+				System.out.println("");
+			}*/
+
+			System.out.println("Player2: enter coordinates");
+			player2 = inputBattleship(input);
 
 	}
 
@@ -29,7 +44,7 @@ public class Battleship
 		}
 	}
 
-	public static void inputBattleship(Scanner input)
+	public static int[][] inputBattleship(Scanner input)
 	{
 
 		int boardRow = 5;
@@ -83,7 +98,7 @@ public class Battleship
 			}
 
 		}
-
+		return ship;
 	}
 
 	public static boolean isInMap(int x_coord, int y_coord)
@@ -109,5 +124,12 @@ public class Battleship
 		}
 		return false;
 	}
-
+	public static void printBoard()
+	{
+		System.out.println("  0 1 2 3 4");
+		for (int i = 0; i < 5; i++)
+		{
+			System.out.println(i + " - - - - -");
+		}
+	}
 }
