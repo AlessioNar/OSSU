@@ -14,7 +14,8 @@ public class Battleship
 			System.out.println("Player 1: enter coordinates");
 
 			player1 = inputBattleship(input);
-
+			printBoard(player1);
+			player1 = hit(player1, input);
 			printBoard(player1);
 			// Here I print the Board
 
@@ -29,26 +30,6 @@ public class Battleship
 			printBoard(player2);
 
 
-	}
-
-	// Use this method to print game boards to the console.
-	private static void printBattleShip(char[][] player)
-	{
-		System.out.print("  ");
-		for (int row = -1; row < 5; row++)
-		{
-			if (row > -1) {
-				System.out.print(row + " ");
-			}
-			for (int column = 0; column < 5; column++) {
-				if (row == -1) {
-					System.out.print(column + " ");
-				} else {
-					System.out.print(player[row][column] + " ");
-				}
-			}
-			System.out.println("");
-		}
 	}
 
 	public static char[][] inputBattleship(Scanner input)
@@ -145,5 +126,31 @@ public class Battleship
 			}
 			System.out.printf("\n");
 		}
+	}
+
+	public static char[][] hitBoard(char[][] board, int x_coord, int y_coord)
+	{
+		if (board[x_coord][y_coord] == '-')
+		{
+			board[x_coord][y_coord] = 'O';
+			System.out.println("PLAYER [NUM] MISSED!");
+		}
+		else if (board[x_coord][y_coord] == '@')
+		{
+			board[x_coord][y_coord] = 'X';
+			System.out.println("PLAYER [NUM A] HIT PLAYER [NUM B]’s SHIP!");
+		}
+		return board;
+	}
+
+	public static char[][] hit(char[][] board, Scanner input)
+	{
+		System.out.println("Player 1, enter hit row/column:");
+		int x_coord, y_coord;
+
+    x_coord = input.nextInt();
+    y_coord = input.nextInt();
+		board = hitBoard(board, x_coord, y_coord);
+		return board;
 	}
 }
