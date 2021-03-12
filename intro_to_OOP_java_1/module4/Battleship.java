@@ -3,8 +3,9 @@ public class Battleship
 {
 	public static void main(String[] args)
 	{
+			Scanner input = new Scanner(System.in);
 			System.out.println("Welcome to Battleship");
-			inputBattleship();
+			inputBattleship(input);
 
 	}
 
@@ -28,11 +29,11 @@ public class Battleship
 		}
 	}
 
-	public static void inputBattleship()
+	public static void inputBattleship(Scanner input)
 	{
+
 		int boardRow = 5;
 		int boardCol = 5;
-		Scanner input = new Scanner(System.in);
 		int ship[][] = new int[5][2];
 
 		for (int i = 0; i < 5; i++)
@@ -47,20 +48,28 @@ public class Battleship
 				if (input.hasNextInt())
 				{
 					ship[i][0] = input.nextInt();
+
 					if (input.hasNextInt())
 					{
 						ship[i][1] = input.nextInt();
 
 						// Then verify that they are in the map
-						if ((ship[i][0] >= 0) && (ship[i][0] <= 4) && (ship[i][1] >= 0) && (ship[i][1] <= 4))
+						if (isInMap(ship[i][0], ship[i][1]) == true)
 						{
-							incorrectInput = false;
+							if (isPresent(ship, ship[i][0], ship[i][1], i) == false)
+							{
+								incorrectInput = false;
+							}
+							else
+							{
+								System.out.println("You already have a ship there. Choose different coordinates.");
+								System.out.println("Enter ship " + (i+1) + " location:");
+							}
 						}
 						else
 						{
 							System.out.printf("Invalid coordinates. Choose different coordinates.\n");
 							System.out.println("Enter ship " + (i+1) + " location:");
-
 						}
 					}
 				}
@@ -73,12 +82,32 @@ public class Battleship
 
 			}
 
-
-			// Check if coordinates are already occupied
-
-
 		}
 
+	}
+
+	public static boolean isInMap(int x_coord, int y_coord)
+	{
+		if ((x_coord >= 0) && (x_coord <= 4) && (y_coord >= 0) && (y_coord <= 4))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public static boolean isPresent(int[][] array, int x_coord, int y_coord, int iteration)
+	{
+		for(int i = 0; i < iteration; i++)
+		{
+			if ((x_coord == array[i][0]) && (y_coord == array[i][1]))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
