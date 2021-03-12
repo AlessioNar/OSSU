@@ -5,12 +5,17 @@ public class Battleship
 	{
 			Scanner input = new Scanner(System.in);
 			System.out.println("Welcome to Battleship");
-			int player1[][] = new int[5][2];
-			int player2[][] = new int[5][2];
-			printBoard();
-			System.out.println("Player1: enter coordinates");
+
+			// Initialize player maps
+
+			char player1[][] = new char[5][5];
+			char player2[][] = new char[5][5];
+
+			System.out.println("Player 1: enter coordinates");
+
 			player1 = inputBattleship(input);
 
+			printBoard(player1);
 			// Here I print the Board
 
 			// 100 empty lines
@@ -19,8 +24,10 @@ public class Battleship
 				System.out.println("");
 			}*/
 
-			System.out.println("Player2: enter coordinates");
+			System.out.println("Player 2: enter coordinates");
 			player2 = inputBattleship(input);
+			printBoard(player2);
+
 
 	}
 
@@ -44,13 +51,24 @@ public class Battleship
 		}
 	}
 
-	public static int[][] inputBattleship(Scanner input)
+	public static char[][] inputBattleship(Scanner input)
 	{
 
-		int boardRow = 5;
-		int boardCol = 5;
-		int ship[][] = new int[5][2];
+		// Initialize vector and coordinate placeholder
 
+		char map[][] = new char[5][5];
+		int x_coord, y_coord;
+
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j< 5; j++)
+			{
+				map[i][j] = '-';
+			}
+		}
+
+
+		// Gather five ships
 		for (int i = 0; i < 5; i++)
 		{
 			System.out.println("Enter ship " + (i+1) + " location:");
@@ -62,17 +80,18 @@ public class Battleship
 				// First verify that the coordinates are integers
 				if (input.hasNextInt())
 				{
-					ship[i][0] = input.nextInt();
+					x_coord = input.nextInt();
 
 					if (input.hasNextInt())
 					{
-						ship[i][1] = input.nextInt();
+						y_coord = input.nextInt();
 
 						// Then verify that they are in the map
-						if (isInMap(ship[i][0], ship[i][1]) == true)
+						if (isInMap(x_coord, y_coord) == true)
 						{
-							if (isPresent(ship, ship[i][0], ship[i][1], i) == false)
+							if (map[x_coord][y_coord] != '@')
 							{
+								map[x_coord][y_coord] = '@';
 								incorrectInput = false;
 							}
 							else
@@ -98,7 +117,7 @@ public class Battleship
 			}
 
 		}
-		return ship;
+		return map;
 	}
 
 	public static boolean isInMap(int x_coord, int y_coord)
@@ -113,23 +132,18 @@ public class Battleship
 		}
 	}
 
-	public static boolean isPresent(int[][] array, int x_coord, int y_coord, int iteration)
-	{
-		for(int i = 0; i < iteration; i++)
-		{
-			if ((x_coord == array[i][0]) && (y_coord == array[i][1]))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	public static void printBoard()
+
+	public static void printBoard(char[][] player)
 	{
 		System.out.println("  0 1 2 3 4");
 		for (int i = 0; i < 5; i++)
 		{
-			System.out.println(i + " - - - - -");
+			System.out.printf("%d", i);
+			for (int j = 0; j < 5; j++)
+			{
+				System.out.printf(" " + player[i][j]);
+			}
+			System.out.printf("\n");
 		}
 	}
 }
