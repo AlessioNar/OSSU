@@ -1,8 +1,8 @@
 import java.util.Scanner;
 public class Battleship
 {
-	public static int BOARD_DIM = 3;
-	public static int NUM_SHIP = 5;
+	public static int BOARD_DIM = 9;
+	public static int NUM_SHIP = 3;
 
 	public static void main(String[] args)
 	{
@@ -42,6 +42,7 @@ public class Battleship
 			}
 			System.out.printf("Player %s: enter ship coordinates\n", name2);
 			player2 = inputBattleship(input);
+
 			printBoard(player2);
 
 			for (int i=0; i< 100; i++)
@@ -51,10 +52,10 @@ public class Battleship
 
 			while((checkWin(public1) == false) && (checkWin(public2) == false))
 			{
-					public1 = hit(player1, public1, input, "1");
+					public1 = launchTorpedo(player1, public1, input, name1);
 					printBoard(public1);
 
-					public2 = hit(player2, public2, input, "2");
+					public2 = launchTorpedo(player2, public2, input, name2);
 					printBoard(public2);
 			}
 
@@ -64,11 +65,13 @@ public class Battleship
 			}
 			else if (checkWin(public1) == true)
 			{
-				System.out.println("%s wins!", name1);
+				// Here i could put a functionality that provides a textual effect depending on
+				
+				System.out.printf("%s\n", name1);
 			}
 			else if (checkWin(public2) == true)
 			{
-				System.out.println("%s wins!", name2);
+				System.out.printf("%s wins!\n", name2);
 			}
 	}
 
@@ -177,48 +180,55 @@ public class Battleship
 		}
 	}
 
-	public static char[][] hit(char[][] privateBoard, char[][] publicBoard, Scanner input, String player)
+	public static char[][] launchTorpedo(char[][] privateBoard, char[][] publicBoard, Scanner input, String player)
 	{
-		System.out.printf("Player %s, enter hit row/column:\n", player);
 		int x_coord, y_coord;
-
 		boolean incorrectInput = true;
 
 		while(incorrectInput)
 		{
-			// First verify that the coordinates are integers
+			System.out.printf("Choose two coordinates - %s's TUBES ARE OPENING...  ", player);
+			// First verify that both coordinates are integers
 			if (input.hasNextInt())
 			{
 				x_coord = input.nextInt();
 
 				if (input.hasNextInt())
 				{
-
 					y_coord = input.nextInt();
 
+					// Check if it is in map
 					if (isInMap(x_coord, y_coord) == true)
 					{
+
+					// Now x and y are available. I have to find a nicer way to do this
 						if (publicBoard[x_coord][y_coord] == 'O' | publicBoard[x_coord][y_coord] == 'X')
 						{
 							System.out.println("You already fired on this spot. Choose different coordinates.");
 							continue;
 						}
-						else if (privateBoard[x_coord][y_coord] == '@')
-						{
-							publicBoard[x_coord][y_coord] = 'X';
-							System.out.printf("PLAYER %s HIT A SHIP!\n", player);
-							incorrectInput = false;
-						}
-						else if (privateBoard[x_coord][y_coord] == '-')
-						{
-							publicBoard[x_coord][y_coord] = 'O';
-							System.out.printf("PLAYER %s MISSED!\n", player);
-							incorrectInput = false;
-						}
+						else {
+
+									System.out.printf("PLAYER %s, SHOT A TORPEDO at %d.231 NORD %d.425 EST \n", player.toUpperCase(), x_coord, y_coord);
+
+									if (privateBoard[x_coord][y_coord] == '@')
+									{
+										publicBoard[x_coord][y_coord] = 'X';
+										System.out.printf("PLAYER %s HIT A SHIP!\n", player);
+										incorrectInput = false;
+									}
+									else if (privateBoard[x_coord][y_coord] == '-')
+									{
+										publicBoard[x_coord][y_coord] = 'O';
+										System.out.printf("PLAYER %s MISSED!\n", player);
+										incorrectInput = false;
+									}
+								}
 					}
 					else
 					{
-						System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+						// closes the if in the map range
+						System.out.printf("Invalid coordinates. Choose different coordinates - 0-%d, 0-%d\n", BOARD_DIM, BOARD_DIM);
 						input.next();
 						continue;
 					}
@@ -226,42 +236,45 @@ public class Battleship
 				}
 				else
 				{
-						System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+					  // close 2nd integer
+						System.out.printf("Invalid coordinates. Choose different coordinates - 0-%d, 0-%d\n", BOARD_DIM, BOARD_DIM);
 						input.next();
 						continue;
 				}
 			}
 			else
 			{
-				System.out.printf("Invalid coordinates. Choose different coordinates.\n");
+				// closes 1st integer
+				System.out.printf("Invalid coordinates. Choose different coordinates - 0-%d, 0-%d\n", BOARD_DIM, BOARD_DIM);
 				input.next();
 				continue;
 			}
 		}
+		// return board
 		return publicBoard;
 	}
 
+// At the end of the turn, check if  one of the player won by counting how many
+// X they have
 	public static boolean checkWin(char[][] board)
 	{
 		int counter = 0;
-		for (int i = 0; i < 5; i++)
+
+		for (int i = 0; i < BOARD_DIM; i++)
 		{
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < BOARD_DIM; j++)
 			{
 				if (board[i][j] == 'X')
 				{
-					counter = counter + 1;
+					counter++;
 				}
 			}
 		}
 
-		if (counter == 5)
+		if (counter == NUM_SHIP)
 		{
 			return true;
 		}
-		else
-		{
 		return false;
-		}
 	}
 }
