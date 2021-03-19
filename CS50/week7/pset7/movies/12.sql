@@ -1,12 +1,17 @@
-write a SQL query to list the titles of all movies in which both Johnny Depp and Helena Bonham Carter starred.
-
-   Your query should output a table with a single column for the title of each movie.
-   You may assume that there is only one person in the database with the name Johnny Depp.
-   You may assume that there is only one person in the database with the name Helena Bonham Carter.
-
-SELECT movie_id
-FROM stars
-INNER JOIN people
-ON stars.person_id = people.id
-WHERE people.name = 'Johnny Depp'
-OR people.name = 'Helena Bonham Carter';
+SELECT title
+FROM movies
+WHERE id IN (
+  SELECT johnny.movie_id
+  FROM
+    (SELECT stars.movie_id
+    FROM stars
+    INNER JOIN people
+    ON people.id = stars.person_id
+    WHERE people.name = 'Johnny Depp') as johnny
+  INNER JOIN (
+    SELECT stars.movie_id
+    FROM stars
+    INNER JOIN people
+    ON people.id = stars.person_id
+    WHERE people.name = 'Helena Bonham Carter') as helena
+  ON helena.movie_id = johnny.movie_id);
