@@ -7,7 +7,8 @@
 int main(int argc, char *argv[])
 {
     // Check if only one argument is presented
-    if (argc != 2){
+    if (argc != 2)
+    {
       printf("Usage: ./substitution key \n");
       return 1;
     }
@@ -15,13 +16,15 @@ int main(int argc, char *argv[])
     string key = argv[1];
 
     // Check if key is of length 26
-    if (strlen(key) != 26){
+    if (strlen(key) != 26)
+    {
       printf("Key must contain 26 characters.\n");
       return 1;
     }
 
     // Check if only letters
-    for (int i = 0; i < 26; i++){
+    for (int i = 0; i < 26; i++)
+    {
 
       key[i] = tolower(key[i]);
 
@@ -45,7 +48,7 @@ int main(int argc, char *argv[])
 
   string plaintext = get_string("Plaintext: ");
 
-  printf("Ciphertext: ");
+  printf("ciphertext: ");
 
   for (int i = 0; i < strlen(plaintext); i++)
   {
@@ -64,7 +67,7 @@ int main(int argc, char *argv[])
     {
     printf("%c", plaintext[i]);
     }
-    }
+  }
 
     printf("\n");
 }

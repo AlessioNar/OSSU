@@ -35,16 +35,25 @@ int main(void){
   if (sentences == 0){
     sentences = 1;
   }
-  printf("%d Letter(s)\n", letters);
-  printf("%d Word(s)\n", words);
-  printf("%d Sentence(s)\n", sentences);
 
   float avg_let = per_word(letters, words);
   float avg_sent = per_word(sentences, words);
 
-  float index = 0.0588 * avg_let - 0.296 * avg_sent - 15.8;
+  int index = round(0.0588 * avg_let - 0.296 * avg_sent - 15.8);
 
-  printf("The Coleman-Liau index is: %f\n", index);
+
+  if (index > 15)
+  {
+   printf("Grade 16+\n");
+  }
+  else if (index < 1)
+  {
+    printf("Before Grade 1\n");
+  } else
+  {
+    printf("Grade %d\n", index);
+  }
+
 }
 
 float per_word(int value, int words)

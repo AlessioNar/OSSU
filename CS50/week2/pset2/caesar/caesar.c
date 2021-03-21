@@ -21,12 +21,13 @@ int main(int argc, char *argv[])
     {
         if (plaintext[i] > 64 && plaintext[i] < 91)
         {
-        int temp_int = (int) plaintext[i] - 65;
-        temp_int = (temp_int + key) % 26;
-        temp_int = temp_int + 65;
-        printf("%c", (char) temp_int);
+          int temp_int = (int) plaintext[i] - 65;
+          temp_int = (temp_int + key) % 26;
+          temp_int = temp_int + 65;
+          printf("%c", (char) temp_int);
         }
-        if (plaintext[i] > 96 && plaintext[i] < 123){
+        else if (plaintext[i] > 96 && plaintext[i] < 123)
+        {
           int temp_int = (int) plaintext[i] - 97;
           temp_int = (temp_int + key) % 26;
           temp_int = temp_int + 97;
