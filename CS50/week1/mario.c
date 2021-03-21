@@ -8,7 +8,7 @@ int main(void){
   {
   height = get_int("Enter the height of the pyramid: ");
   }
-  while (height <= 0);
+  while (height <= 0 || height > 8);
 
   for (int i = 1; i <= height; i++){
     int ndots = height - i;
@@ -22,10 +22,6 @@ int main(void){
 
     for(int j = 1; j <= i; j++){
       printf("#");
-    }
-
-    for(int j = 1; j <= ndots; j++){
-      printf(" ");
     }
 
     printf("\n");
