@@ -12,7 +12,7 @@ int BUFFER_SIZE = 512;
 int main(int argc, char *argv[])
 {
 
-
+  // Verify usage
   if (argc != 2)
   {
     printf("Usage: ./recover image\n");
@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
  FILE *img;
  bool jpg_found = false;
  int counter = 0;
+ char filename[8];
 
  // While the file returns exactly 512 bits
  while(fread(buffer, BUFFER_SIZE, 1, f) == 1)
@@ -45,24 +46,26 @@ int main(int argc, char *argv[])
      // If we have already found a jpg file
      if(jpg_found == true)
      {
-       // We found the beginning of a new picture, thus we close current img
+       // We close the previous jpg file
        fclose(img);
      }
      else
      {
-       // Set jpg_found to 1
-       jpg_found = true;
+        // Otherwise set jpg_found to true
+        jpg_found = true;
      }
-     // We write the header of the jpg file into a new file
-     char filename[8];
+
+     // We write the header of the new jpg file into a new file
      sprintf(filename, "%03d.jpg", counter);
-     img = fopen(filename, "a");
+     img = fopen(filename, "w");
+     fwrite(buffer, BUFFER_SIZE, 1, img);
+
      counter++;
    }
    // We proceed in writing the body of a new picture
    else if (jpg_found == true)
    {
-     fwrite(&buffer, BUFFER_SIZE, 1, img);
+        fwrite(buffer, BUFFER_SIZE, 1, img);
    }
  }
 
