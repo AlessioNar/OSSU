@@ -12,7 +12,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         RGBTRIPLE pixel = image[row][col];
 
         // find average
-        int avg = round(pixel.rgbtBlue + pixel.rgbtGreen + pixel.rgbtRed) / 3.0;
+        int avg = round((pixel.rgbtBlue + pixel.rgbtGreen + pixel.rgbtRed) / 3.0);
 
         // assign it to RGB triples
         image[row][col].rgbtBlue = avg;
@@ -55,9 +55,9 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
         sepiaBlue = 255;
       }
 
-      image[row][col].rgbtBlue = sepiaRed;
+      image[row][col].rgbtBlue = sepiaBlue;
       image[row][col].rgbtGreen = sepiaGreen;
-      image[row][col].rgbtRed = sepiaBlue;
+      image[row][col].rgbtRed = sepiaRed;
     }
   }
 
@@ -106,7 +106,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         int x[] = {row -1, row, row + 1};
         int y[] = {col -1, col, col + 1};
 
-        float totalR = totalG = totalB = 0;
+        float totalR = 0;
+        float totalG = 0;
+        float totalB = 0;
 
         for (int r = 0; r < 3; r++)
         {

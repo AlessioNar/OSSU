@@ -1,11 +1,11 @@
-sort1 uses: Selection sort
+sort1 uses: Bubble sort
 
-How do you know?: It is the slowest
+How do you know?: Because it performed way better than selection sort in sorted data
 
 sort2 uses: Merge sort
 
-How do you know?: It is the fastest in all cases
+How do you know?: Because it was the fastest one
 
-sort3 uses: Bubble sort
+sort3 uses: Selection sort
 
-How do you know?: It is fastest than sort1 in the already sorted vectors
+How do you know?: Because it performed more or less the same for in both sorted or non sorted data
