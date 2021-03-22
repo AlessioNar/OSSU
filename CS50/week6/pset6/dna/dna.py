@@ -46,9 +46,11 @@ def main():
 
 def count_matches(pattern, sequence):
     ## Use regex and lambda expression to find maximum number of consecutive STR
-    n_matches = max([len(x) // len(pattern) for x in re.findall(fr'((?:{pattern})+)', sequence)])
-    if n_matches is None:
+    n_matches = [len(x) // len(pattern) for x in re.findall(fr'((?:{pattern})+)', sequence)]
+    if not n_matches:
         n_matches = 0
+    else:
+        n_matches = max(n_matches)
     return n_matches
 
 
