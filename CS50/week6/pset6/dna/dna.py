@@ -27,9 +27,9 @@ def main():
 
     target = {}
     for element in STR:
-         target[element] = 0
-         target[element] = count_matches(element, sequence)
-    print(target)
+        target[element] = 0
+        target[element] = count_matches(element, sequence)
+
     found = False
 
     for person in dictionary:
@@ -37,24 +37,19 @@ def main():
         for element in STR:
             if int(person[element]) == int(target[element]):
                 counter += 1
-        if counter == 3:
+        if counter == len(STR):
             print(person['name'])
             found = True
 
     if found != True:
-        print("Not found")
+        print("No match")
 
-def count_matches(STR, sequence):
-    counter = 0
-    # Compile pattern
-    pattern = re.compile(fr'{STR}')
-    # Count number of matches
-    matches = re.findall(pattern, sequence)
-    for match in matches:
-        counter += 1
-    return counter
-
-
+def count_matches(pattern, sequence):
+    ## Use regex and lambda expression to find maximum number of consecutive STR
+    n_matches = max([len(x) // len(pattern) for x in re.findall(fr'((?:{pattern})+)', sequence)])
+    if n_matches is None:
+        n_matches = 0
+    return n_matches
 
 
 if __name__=="__main__":
