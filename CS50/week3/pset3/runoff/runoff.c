@@ -106,10 +106,7 @@ int main(int argc, string argv[])
         {
             for (int i = 0; i < candidate_count; i++)
             {
-                if (!candidates[i].eliminated)
-                {
                     printf("%s\n", candidates[i].name);
-                }
             }
             break;
         }
@@ -144,18 +141,16 @@ bool vote(int voter, int rank, string name)
 // Tabulate votes for non-eliminated candidates
 void tabulate(void)
 {
-    // TODO
     for (int i = 0; i < voter_count; i++)
     {
-      for (int j = 0; j < candidate_count; j++)
-      {
-        if (candidates[i].eliminated == false)
+        for (int j = 0; j < candidate_count; j++)
         {
-          candidates[preferences[i][j]].votes++;
-          break;
+            if (candidates[preferences[i][j]].eliminated == false)
+            {
+                candidates[preferences[i][j]].votes += 1;
+                break;
+            }
         }
-      }
-
     }
     return;
 }
@@ -167,11 +162,12 @@ bool print_winner(void)
   {
       if (candidates[i].votes > (voter_count /2))
       {
-        printf("The winner is %s!\n", candidates[i].name);
+        printf("%s\n", candidates[i].name);
+
         return true;
       }
-      return false;
   }
+  return false;
 }
 
 // Return the minimum number of votes any remaining candidate has
