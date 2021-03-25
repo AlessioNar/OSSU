@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              let button = document.querySelectorAll('.button');
+              let multipleResult = document.querySelector('#multipleResult');
+              button.forEach(function(element){
+                element.addEventListener('click', function(event){
+                  if (element.innerHTML == 'Around 60 million') {
+                    multipleResult.innerHTML = 'Correct';
+                    element.style.backgroundColor = "green";
+                  } else {
+                    multipleResult.innerHTML = 'Incorrect';
+                    element.style.backgroundColor = "red";
+                  }
+                });
+              });
+
+              let submit = document.querySelector('#submit');
+              let answer = document.querySelector('#answer');
+
+              submit.addEventListener('click', function(event) {
+                let result = document.querySelector('#result');
+                  if (answer.value.toLowerCase() == 'pizza') {
+                    result.innerHTML = 'Correct';
+                    answer.style.backgroundColor = 'green';
+                  }
+                  else {
+                    result.innerHTML = 'Incorrect';
+                    answer.style.backgroundColor = 'red';
+                  }
+            });
+          });
+        </script>
+
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+
+                <h3>How many people live in Italy?</h3>
+                <button class="button">Around 50 million</button>
+                <button class="button">Around 60 million</button>
+                <button class="button">Around 70 million</button>
+                <button class="button">Around 80 million</button>
+                <br><br>
+                <p id="multipleResult"></p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>What famous italian street food was invented in Naples?</h3>
+
+                <form>
+                  <input autocomplete="off" id="answer" autofocus placeholder="Answer" type="text">
+                  <input type="button" id="submit" value="Check">
+                </form>
+                <p id="result"></p>
+            </div>
+
+        </div>
+    </body>
+</html>
