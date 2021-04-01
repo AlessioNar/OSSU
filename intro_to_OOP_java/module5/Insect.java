@@ -26,7 +26,40 @@ public class Insect
   }
 
   // Methods
+  public double getWeight() {
+    return weight;
+  }
 
+  public int getX() {
+    return x;
+  }
+
+  public void setX(int newX) {
+    if(isLegalX(newX)) {
+      x = newX;
+    }
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  public void setY(int newY) {
+    if(isLegalY(newY)) {
+      y = newY;
+    }
+  }
+  public static int getPopulation() {
+    return population;
+  }
+
+  public static boolean isLegalX(int newX) {
+    return (newX >= 0 ? true : false);
+  }
+
+  public static boolean isLegalY(int newY) {
+    return (newY >= 0 ? true : false);
+  }
   public void eat(double amount)
   {
     System.out.println("Nibble Nibble");
