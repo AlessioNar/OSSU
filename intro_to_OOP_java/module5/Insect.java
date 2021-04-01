@@ -1,7 +1,15 @@
 public class Insect
 {
 
+  // Instance variables
+  private double weight;
+  private int x;
+  private int y;
+
   // Stati constants/variables
+  public static final int DEFAULT_X = 0;
+  public static final int DEFAULT_Y = 0;
+  public static final double DEFAULT_WEIGHT = 0;
   public static final double DIST_WEIGHT_LOSS_FACTOR = .0001;
   private static int population = 0;
   private static final String[] FACTS = {
@@ -11,17 +19,21 @@ public class Insect
     "Spiders are not considered insects"
   };
 
-  // Instance variables
-  private double weight;
-  private int x;
-  private int y;
+  // Constructors
 
-  // Constructor
-  public Insect(double initWeight, int initX, int initY)
+  public Insect() {
+    this(DEFAULT_WEIGHT);
+  }
+
+  public Insect(double weight) {
+    this(weight, DEFAULT_X, DEFAULT_Y);
+  }
+
+  public Insect(double weight, int x, int y)
   {
-    weight = initWeight;
-    x = initX;
-    y = initY;
+    this.weight = weight;
+    this.x = x;
+    this.y = y;
     population++;
   }
 
@@ -34,9 +46,9 @@ public class Insect
     return x;
   }
 
-  public void setX(int newX) {
-    if(isLegalX(newX)) {
-      x = newX;
+  public void setX(int x) {
+    if(isLegalX(x)) {
+      this.x = x;
     }
   }
 
@@ -44,9 +56,9 @@ public class Insect
     return y;
   }
 
-  public void setY(int newY) {
-    if(isLegalY(newY)) {
-      y = newY;
+  public void setY(int y) {
+    if(isLegalY(y)) {
+      this.y = y;
     }
   }
   public static int getPopulation() {
@@ -92,7 +104,9 @@ public class Insect
     int index = (int)(Math.random() * ((FACTS.length - 1) + 1));
     return FACTS[index];
   }
-
+  public String toString() {
+    return "weight: " + weight + ", x: " + x + ", y: " + y;
+  }
   public static void main(String[] args)
   {
 
