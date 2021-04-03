@@ -21,28 +21,21 @@ public class Fly {
   }
 
   public float getMass() {
-    return mass;
+    return this.mass;
   }
   public double getSpeed() {
-    return speed;
+    return this.speed;
   }
 
   public void setMass(float mass) {
-    if(isLegalMass(mass)) {
+    if(mass >= 0) {
       this.mass = mass;
     }
   }
   public void setSpeed(double speed) {
-    if(isLegalSpeed(speed)) {
+    if(speed >= 0) {
       this.speed = speed;
     }
-  }
-
-  public static boolean isLegalMass(float mass) {
-    return (mass >= 0 ? true : false);
-  }
-  public static boolean isLegalSpeed(double speed) {
-    return (speed >= 0 ? true : false);
   }
 
   public String toString() {
@@ -53,20 +46,20 @@ public class Fly {
     }
   }
 
-  public void grow(int newMass) {
+  public void grow(int mass) {
 
-    for (int i = 0; i < newMass; i++) {
-      mass++;
-      if (mass < 20) {
-        speed++;
+    for (int i = 0; i < mass; i++) {
+      this.mass++;
+      if (this.mass < 20) {
+        this.speed = this.speed + 1;
       } else {
-        speed = speed - 0.5;
+        this.speed = this.speed - 0.5;
       }
     }
   }
 
   public boolean isDead() {
-    if (mass == 0) {
+    if (this.mass == 0) {
       return true;
     } else {
       return false;
